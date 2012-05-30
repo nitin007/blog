@@ -1,0 +1,46 @@
+<div> <%= flash[:notice] %> </div>
+
+<% if session[:current_user] %>
+	<div>Hi <b><%= session[:current_user] %></b></div>
+	<div> <%= link_to 'logout', logout_path %> </div>
+<% else %>
+	<div> <%= link_to 'login', login_path %> </div>
+	<div> <%= link_to 'signup', signup_path %> </div>
+<% end %>
+
+<h1>Listing posts</h1>
+
+<table class = "posts">
+  <tr>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+	<% @posts.each do |post| %>
+		<tr>
+		  <td><%= post.name %></td>
+		  <td><%= post.title %></td>
+		  <td><%= post.description %></td>
+		 	<td><%= post.category.name %></td>
+		  <td><%= link_to 'Show', post %></td>			
+		  <% if session[:current_user] %>
+				<td><%= link_to 'Edit', edit_post_path(post) %></td>
+				<td><%= link_to 'Destroy', post, confirm: 'Are you sure?', method: :delete %></td>
+			<% end %>
+		</tr>
+	<% end %>	
+</table>
+	<br />
+	<%= will_paginate @posts %>
+
+<br />
+
+<% if session[:current_user] %>
+	<%= link_to 'New post', new_post_path %>
+	<%= link_to 'Manage categories', categories_path %>
+<% end %>
