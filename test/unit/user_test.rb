@@ -13,6 +13,7 @@ class UserTest < ActiveSupport::TestCase
   	user1 = User.new(:username => "nitin", :password => "12345678", :password_confirmation => "12345678")
   	assert user1.save
   	
+    #FIX: validation on uniqueness is case sensitive. Please also check with NITIN
   	user2 = User.new(:username => "nitin", :password => "87654321", :password_confirmation => "87654321")
   	assert !user2.save
   	assert_equal "has already been taken", user2.errors[:username].join(';')
@@ -25,6 +26,7 @@ class UserTest < ActiveSupport::TestCase
   	user.password = "12345"
   	user.password_confirmation = "12345"
   	assert user.valid?
+    #FIX: Also check with password having length > 5
   end
   
   test "password and password_confirmation must be equal" do
@@ -32,15 +34,21 @@ class UserTest < ActiveSupport::TestCase
   	assert user.invalid?
   end
   
+  #FIX: test "encrypt password before saving"
   test "password before storing into database must be hashed" do
   	user = User.new(:username => "nitin", :password => "12345678")
   	user.save
+    
   	assert_equal user.password, Digest::SHA512.hexdigest('12345678')
   end
   
+  #FIX: Test should say 'test authenticate' instead of user is authenticated before login
   test "user is authenticated before login" do
   	user = User.new(:username => "nitin", :password => "12345678")
   	user.save
   	assert User.authenticate("nitin", "12345678"), "username or password is incorrect!"
-  end
+ end
+ 
+ #FIX: test missing for hash_password
+ #FIX: test missing for :posts associations
 end
