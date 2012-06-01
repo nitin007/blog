@@ -1,9 +1,16 @@
 require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
+  
+  #FIX: Add a test case that covers attributes that are accessible
+  #FIX: Tests for associations like user, category, comments, tags
+  
+  
+  
 	test "post attributes must not be empty" do
 		post = Post.new
 		assert post.invalid?
+    #FIX: Instead of checking any, you must check for exact validation error, like 'can not be blank'
 		assert post.errors[:title].any?
 		assert post.errors[:description].any?
 		assert post.errors[:name].any?
