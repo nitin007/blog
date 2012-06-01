@@ -46,3 +46,5 @@ group :test do
   gem "autotest-rails"
   gem "mocha"
 end
+
+gem 'cover_me', '>= 1.2.0', :group => :test

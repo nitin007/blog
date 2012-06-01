@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(:version => 20120526055118) do
     t.string   "title"
     t.text     "description"
     t.integer  "category_id"
-    t.integer  "users_id"
+    t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   add_index "posts", ["category_id"], :name => "index_posts_on_category_id"
-  add_index "posts", ["users_id"], :name => "index_posts_on_users_id"
+  add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
   create_table "tags", :force => true do |t|
     t.string   "name"

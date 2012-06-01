@@ -5,11 +5,11 @@ class CreatePosts < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.references :category
-      t.references :users
+      t.references :user
 
       t.timestamps
     end
     add_index :posts, :category_id
-    add_index :posts, :users_id
+    add_index :posts, :user_id
   end
 end
